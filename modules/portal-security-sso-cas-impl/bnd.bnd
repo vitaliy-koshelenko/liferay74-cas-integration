@@ -6,6 +6,7 @@ Import-Package:\
 	\
 	!junit.*,\
 	!org.slf4j.impl,\
+	!java.security.acl,\
 	\
 	*
 -fixupmessages: Classes found in the wrong directory: ...;is:=ignore
