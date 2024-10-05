@@ -15,25 +15,23 @@
 package com.liferay.portal.security.sso.cas.internal.verify;
 
 import com.liferay.portal.kernel.service.CompanyLocalService;
-import com.liferay.portal.kernel.settings.SettingsFactory;
+import com.liferay.portal.kernel.settings.SettingsLocatorHelper;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.security.sso.cas.constants.CASConfigurationKeys;
 import com.liferay.portal.security.sso.cas.constants.CASConstants;
 import com.liferay.portal.security.sso.cas.constants.LegacyCASPropsKeys;
 import com.liferay.portal.verify.BaseCompanySettingsVerifyProcess;
 import com.liferay.portal.verify.VerifyProcess;
-
-import java.util.Set;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+
+import java.util.Set;
 
 /**
  * @author Brian Greenwald
  */
 @Component(immediate = true, service = VerifyProcess.class)
-public class CASCompanySettingsVerifyProcess
-	extends BaseCompanySettingsVerifyProcess {
+public class CASCompanySettingsVerifyProcess extends BaseCompanySettingsVerifyProcess {
 
 	@Override
 	protected CompanyLocalService getCompanyLocalService() {
@@ -85,11 +83,6 @@ public class CASCompanySettingsVerifyProcess
 	}
 
 	@Override
-	protected SettingsFactory getSettingsFactory() {
-		return _settingsFactory;
-	}
-
-	@Override
 	protected String getSettingsId() {
 		return CASConstants.SERVICE_NAME;
 	}
@@ -101,12 +94,13 @@ public class CASCompanySettingsVerifyProcess
 		_companyLocalService = companyLocalService;
 	}
 
-	@Reference(unbind = "-")
-	protected void setSettingsFactory(SettingsFactory settingsFactory) {
-		_settingsFactory = settingsFactory;
+	private CompanyLocalService _companyLocalService;
+
+	@Override
+	protected SettingsLocatorHelper getSettingsLocatorHelper() {
+		return _settingsLocatorHelper;
 	}
 
-	private CompanyLocalService _companyLocalService;
-	private SettingsFactory _settingsFactory;
-
+	@Reference
+	private SettingsLocatorHelper _settingsLocatorHelper;
 }

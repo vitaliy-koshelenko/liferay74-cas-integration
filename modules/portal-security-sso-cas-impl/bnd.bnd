@@ -5,6 +5,7 @@ Import-Package:\
 	!javax.microedition.*,\
 	\
 	!junit.*,\
+	!org.slf4j.impl,\
 	\
 	*
 -fixupmessages: Classes found in the wrong directory: ...;is:=ignore
